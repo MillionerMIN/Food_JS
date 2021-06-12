@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
    // Timer
 
-   const deadLine = '2021-06-11';
+   const deadLine = '2021-06-25';
 
    function getTimeRemaining(endTime) {
       const t = Date.parse(endTime) - Date.parse(new Date()),
@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
          return `0${num}`;
       } else {
          return num;
-      } 
+      }
    }
 
    function setClock(selector, endTime) {
@@ -77,7 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
          seconds = timer.querySelector('#seconds'),
          timeInterval = setInterval(updateClock, 1000);
 
-         updateClock(); //вызвали  функцию для того что б при обнавлении страницы счетчик сразу обнавился 
+      updateClock(); //вызвали  функцию для того что б при обнавлении страницы счетчик сразу обнавился 
 
       function updateClock() {
          const t = getTimeRemaining(endTime);
@@ -87,12 +87,46 @@ window.addEventListener('DOMContentLoaded', () => {
          minutes.innerHTML = getZero(t.minutes);
          seconds.innerHTML = getZero(t.seconds);
 
-         if(t.total <= 0) {
+         if (t.total <= 0) {
             clearInterval(timeInterval);
          }
       }
    }
 
    setClock('.timer', deadLine);
+
+   // Model window
+
+   const modalTrigger = document.querySelectorAll('[data-modal]'),
+      modal = document.querySelector('.modal'),
+      modalCloseBtn = document.querySelector('[data-close]')
+
+   modalTrigger.forEach(btn => {
+      btn.addEventListener('click', () => {
+         modal.classList.add('show');
+         modal.classList.remove('hide');
+         document.body.style.overflow = 'hidden'; //не позволяет прокручиватся странице когда открыто model window
+      });
+   });
+
+   function closeModal() {
+      modal.classList.add('hide');
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+   }
+
+   modalCloseBtn.addEventListener('click', closeModal);
+
+   modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+         closeModal();
+      }
+   });
+  
+   document.addEventListener('keydown', (e) => {
+      if (e.code === 'Escape' && modal.classList.contains('show')) {
+         closeModal();
+      }
+   });
 
 });
