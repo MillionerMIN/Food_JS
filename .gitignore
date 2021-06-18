@@ -1,0 +1,24 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+
+# Dependencies
+/node_modules
+/.php
+.php.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DC_Store
+.evn.local
+.evn.development.local
+.evn.test.local
+.evn.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
